@@ -5,12 +5,14 @@ local PlayerCharacter = require 'PlayerCharacter'
 local AICharacter = require 'AICharacter'
 local CapturePoint = require 'CapturePoint'
 local SpawnPoint = require 'SpawnPoint'
+local Wall = require 'Wall'
 local colors = require 'colors'
 
 local entities = {}
 local player
 
 local W, H = 600, 480
+local zoom = drystal.camera.zoom
 R = 32
 
 function drystal.update(dt)
@@ -28,6 +30,7 @@ function drystal.draw()
 
 	drystal.camera.x = W / 2 - player.x
 	drystal.camera.y = H / 2 - player.y
+	drystal.camera.zoom = zoom
 	for _, e in ipairs(entities) do
 		e:draw()
 	end
@@ -42,6 +45,13 @@ function drystal.key_press(k)
 end
 function drystal.key_release(k)
 	player:key_release(k)
+end
+function drystal.mouse_press(x, y, b)
+	if b == 4 then
+		zoom = zoom * 1.2
+	elseif b == 5 then
+		zoom = zoom * 0.8
+	end
 end
 
 local function create_entity(cl, ...)
@@ -78,16 +88,22 @@ physic.on_collision(begin_collide, end_collide)
 
 drystal.resize(W, H)
 
-local blue_cap = create_entity(CapturePoint, colors.blue, 0, 0)
-local neutral_cap = create_entity(CapturePoint, colors.neutral, 400, 0)
-local red_cap = create_entity(CapturePoint, colors.red, 800, 0)
+local blue_cap = create_entity(CapturePoint, colors.blue, -350, 0)
+local neutral_cap = create_entity(CapturePoint, colors.neutral, 0, 0)
+local red_cap = create_entity(CapturePoint, colors.red, 350, 0)
 
-local sp_blue = create_entity(SpawnPoint, colors.blue, -200, 0)
-local sp_red = create_entity(SpawnPoint, colors.red, 1000, 0)
+local sp_blue = create_entity(SpawnPoint, colors.blue, -500, 0)
+local sp_red = create_entity(SpawnPoint, colors.red, 500, 0)
 
 create_entity(AICharacter, sp_blue)
 create_entity(AICharacter, sp_red)
 create_entity(AICharacter, sp_red)
+
+local width = 10
+create_entity(Wall, -600, 0, width, 300*2)
+create_entity(Wall, 600, 0, width, 300*2)
+create_entity(Wall, 0, -300, 600*2, width)
+create_entity(Wall, 0, 300, 600*2, width)
 
 player = create_entity(PlayerCharacter, sp_blue)
 player:remove_health(9.99)

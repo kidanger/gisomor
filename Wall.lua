@@ -11,17 +11,19 @@ local Wall = class('Wall', Entity)
 
 :include(require 'PhysicBody')
 
+
 function Wall:init(x, y, w, h)
 	Entity.init(self, x, y)
 
 	self:init_rectangle(w, h)
+	self:init_visual_rectangle({0, 0, 0})
 
 	self:init_physic_body()
 end
 
-function Character:draw(x, y)
+function Wall:draw(x, y)
 	self:draw_visual_rectangle()
 end
 
-return Character
+return Wall
 
