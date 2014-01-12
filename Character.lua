@@ -29,7 +29,7 @@ function Character:init(associated_spawn_point)
 	self:init_health(10)
 	self:init_health_regeneration(3.14)
 
-	self:init_visual_rectangle(color.visual)
+	self:init_visual_rectangle(color.visual_character)
 	self:init_health_bar(60, 10, -self.h/2 - 8)
 
 	self:init_physic_body({}, {

@@ -4,7 +4,7 @@ local physic = require 'physic'
 local PlayerCharacter = require 'PlayerCharacter'
 local AICharacter = require 'AICharacter'
 local CapturePoint = require 'CapturePoint'
-local SpawnPoint = require 'SpawnPoint'
+local TeamBase = require 'TeamBase'
 local Wall = require 'Wall'
 local colors = require 'colors'
 
@@ -88,23 +88,39 @@ physic.on_collision(begin_collide, end_collide)
 
 drystal.resize(W, H)
 
-local blue_cap = create_entity(CapturePoint, colors.blue, -350, 0)
-local neutral_cap = create_entity(CapturePoint, colors.neutral, 0, 0)
-local red_cap = create_entity(CapturePoint, colors.red, 350, 0)
+local base_blue = create_entity(TeamBase, colors.blue, -800, 0)
+local base_red = create_entity(TeamBase, colors.red, 800, 0)
 
-local sp_blue = create_entity(SpawnPoint, colors.blue, -500, 0)
-local sp_red = create_entity(SpawnPoint, colors.red, 500, 0)
+local p1 = create_entity(CapturePoint, colors.blue, -350, 0)
+local p2 = create_entity(CapturePoint, colors.neutral, 0, -150)
+local p2bis = create_entity(CapturePoint, colors.neutral, 0, 150)
+local p3 = create_entity(CapturePoint, colors.red, 350, 0)
 
-create_entity(AICharacter, sp_blue)
-create_entity(AICharacter, sp_red)
-create_entity(AICharacter, sp_red)
+local function link_all(...)
+	local nodes = {...}
+	local old
+	for _, n in ipairs(nodes) do
+		if old then
+			old:link(n, colors.red)
+			n:link(old, colors.blue)
+		end
+		old = n
+	end
+end
+
+link_all(base_blue, p1, p2, p3, base_red)
+link_all(p1, p2bis, p3)
 
 local width = 10
-create_entity(Wall, -600, 0, width, 300*2)
-create_entity(Wall, 600, 0, width, 300*2)
-create_entity(Wall, 0, -300, 600*2, width)
-create_entity(Wall, 0, 300, 600*2, width)
+create_entity(Wall, -1000, 0, width, 300*2)
+create_entity(Wall, 1000, 0, width, 300*2)
+create_entity(Wall, 0, -300, 1000*2, width)
+create_entity(Wall, 0, 300, 1000*2, width)
 
-player = create_entity(PlayerCharacter, sp_blue)
+create_entity(AICharacter, base_blue)
+create_entity(AICharacter, base_red)
+create_entity(AICharacter, base_red)
+
+player = create_entity(PlayerCharacter, base_blue)
 player:remove_health(9.99)
 

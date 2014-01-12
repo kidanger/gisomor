@@ -6,10 +6,12 @@ local Entity = require 'Entity'
 local CapturePoint = class('CapturePoint', Entity)
 
 :include(require 'Colored')
-:include(require 'Points')
-:include(require 'PointsRegeneration')
+:include(require 'Linkable')
 :include(require 'Capturable')
 :include(require 'Circle')
+:include(require 'Points')
+:include(require 'PointsRegeneration')
+:include(require 'LockDependsOnParents')
 
 :include(require 'VisualCapturePoint')
 :include(require 'CaptureBar')
@@ -22,10 +24,11 @@ function CapturePoint:init(color, x, y)
 	Entity.init(self, x, y)
 
 	self:init_color(color)
+	self:init_linkable()
+	self:init_capturable(3.0)
 	self:init_circle(125)
 	self:init_points(10)
 	self:init_points_regeneration(7)
-	self:init_capturable(3.0)
 
 	self:init_capture_bar(100, 20, 125 + 10)
 
@@ -39,6 +42,8 @@ function CapturePoint:draw(x, y)
 	if self.points < self.maxpoints then
 		self:draw_capture_bar()
 	end
+	--debug
+	self:draw_links()
 end
 
 function CapturePoint:update(dt)

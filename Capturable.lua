@@ -9,6 +9,10 @@ function _:init_capturable(points_capture_per_second)
 	self.is_being_captured_by = {}
 end
 
+function _:can_be_captured_by(entity)
+	return not self:path_is_locked(entity.color)
+end
+
 function _:begin_capture(entity)
 	self.is_being_captured_by[entity] = true
 end
@@ -22,7 +26,9 @@ function _:update_capturable(dt)
 		color_count[c] = 0
 	end
 	for ent in pairs(self.is_being_captured_by) do
-		color_count[ent.color] = color_count[ent.color] + 1
+		if self:can_be_captured_by(ent) then
+			color_count[ent.color] = color_count[ent.color] + 1
+		end
 	end
 
 	local capturing = false

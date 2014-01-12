@@ -1,14 +1,21 @@
 return {
 	blue={
-		visual={50, 50, 200},
-		visual_low={10, 10, 100},
+		name='blue',
+		visual_character={50, 50, 200},
+		visual_capture_point={10, 10, 100},
+		visual_base={30, 30, 120},
 	},
 	red={
-		visual={200, 50, 50},
-		visual_low={100, 10, 10},
+		name='red',
+		visual_character={200, 50, 50},
+		visual_capture_point={100, 10, 10},
+		visual_base={170, 50, 50},
+		visual_base={120, 30, 30},
 	},
 	neutral={
-		visual={200, 200, 200},
-		visual_low={100, 100, 100},
+		name='neutral',
+		visual_character={200, 200, 200},
+		visual_capture_point={100, 100, 100},
+		visual_base={0, 0, 0},
 	},
 }

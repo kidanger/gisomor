@@ -19,7 +19,7 @@ function _:draw_capture_bar()
 	drystal.set_color(0, 0, 0)
 	drystal.draw_rect(x, y, self.capture_bar_width, self.capture_bar_height)
 
-	drystal.set_color(self.color.visual)
+	drystal.set_color(self.color.visual_character)
 	drystal.draw_rect(x + 2, y + 2, (self.capture_bar_width - 4)*ratio, self.capture_bar_height - 4)
 end
 
