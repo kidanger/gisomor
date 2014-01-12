@@ -9,6 +9,7 @@ local Character = class('Character', Entity)
 :include(require 'Colored')
 :include(require 'Health')
 :include(require 'HealthRegeneration')
+:include(require 'CanCapture')
 
 :include(require 'VisualRectangle')
 :include(require 'HealthBar')
@@ -17,9 +18,10 @@ local Character = class('Character', Entity)
 :include(require 'PhysicControl')
 :include(require 'PhysicDynamic')
 
-:include(require 'PlayerControl')
+function Character:init(associated_spawn_point)
+	local x, y = associated_spawn_point.x, associated_spawn_point.y
+	local color = associated_spawn_point.color
 
-function Character:init(color, x, y)
 	Entity.init(self, x, y)
 
 	self:init_rectangle(40, 40)
@@ -27,6 +29,7 @@ function Character:init(color, x, y)
 	self:init_health(10)
 	self:init_health_regeneration(3.14)
 
+	self:init_visual_rectangle(color.visual)
 	self:init_health_bar(60, 10, -self.h/2 - 8)
 
 	self:init_physic_body({}, {
@@ -34,8 +37,6 @@ function Character:init(color, x, y)
 		linear_damping=15,
 	})
 	self:init_physic_control(20)
-
-	self:init_player_control()
 end
 
 function Character:draw(x, y)

@@ -1,8 +1,10 @@
 local drystal = require 'drystal'
 local physic = require 'physic'
 
-local Character = require 'Character'
+local PlayerCharacter = require 'PlayerCharacter'
+local AICharacter = require 'AICharacter'
 local CapturePoint = require 'CapturePoint'
+local SpawnPoint = require 'SpawnPoint'
 local colors = require 'colors'
 
 local entities = {}
@@ -71,19 +73,22 @@ local function end_collide(body1, body2)
 	end
 end
 
-function drystal.init()
-	physic.create_world(0, 0)
-	physic.on_collision(begin_collide, end_collide)
+physic.create_world(0, 0)
+physic.on_collision(begin_collide, end_collide)
 
-	drystal.resize(W, H)
+drystal.resize(W, H)
 
-	create_entity(CapturePoint, colors.neutral, 400, 300)
+local blue_cap = create_entity(CapturePoint, colors.blue, 0, 0)
+local neutral_cap = create_entity(CapturePoint, colors.neutral, 400, 0)
+local red_cap = create_entity(CapturePoint, colors.red, 800, 0)
 
-	create_entity(Character, colors.red, 300, 250)
-	create_entity(Character, colors.red, 300, 450)
-	create_entity(Character, colors.blue, 100, 250)
+local sp_blue = create_entity(SpawnPoint, colors.blue, -200, 0)
+local sp_red = create_entity(SpawnPoint, colors.red, 1000, 0)
 
-	player = create_entity(Character, colors.blue, 100, 150)
-	player:remove_health(9.99)
-end
+create_entity(AICharacter, sp_blue)
+create_entity(AICharacter, sp_red)
+create_entity(AICharacter, sp_red)
+
+player = create_entity(PlayerCharacter, sp_blue)
+player:remove_health(9.99)
 
