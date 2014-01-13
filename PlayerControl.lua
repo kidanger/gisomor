@@ -15,6 +15,8 @@ function _:key_press(key)
 	elseif key == 'c' and not self._boosting then
 		self.speed = self.speed * self.SPEED_BOOST
 		self._boosting = true
+	elseif key == 'k' then
+		self:remove_health(3.4)
 	elseif interesting_keys[key] then
 		self[key] = true
 	end

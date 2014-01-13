@@ -6,12 +6,16 @@ local AICharacter = require 'AICharacter'
 local CapturePoint = require 'CapturePoint'
 local TeamBase = require 'TeamBase'
 local Wall = require 'Wall'
+local Camera = require 'Camera'
 local colors = require 'colors'
 
 local entities = {}
 local player
+local camera
 
 local W, H = 600, 480
+Camera.W = W
+Camera.H = H
 local zoom = drystal.camera.zoom
 R = 32
 
@@ -28,9 +32,7 @@ function drystal.draw()
 	drystal.set_color(30, 30, 30)
 	drystal.draw_background()
 
-	drystal.camera.x = W / 2 - player.x
-	drystal.camera.y = H / 2 - player.y
-	drystal.camera.zoom = zoom
+	camera:setup()
 	for _, e in ipairs(entities) do
 		e:draw()
 	end
@@ -48,9 +50,9 @@ function drystal.key_release(k)
 end
 function drystal.mouse_press(x, y, b)
 	if b == 4 then
-		zoom = zoom * 1.2
+		camera:zoom_in()
 	elseif b == 5 then
-		zoom = zoom * 0.8
+		camera:zoom_out()
 	end
 end
 
@@ -88,6 +90,7 @@ physic.on_collision(begin_collide, end_collide)
 
 drystal.resize(W, H)
 
+camera = create_entity(Camera, player)
 local base_blue = create_entity(TeamBase, colors.blue, -800, 0)
 local base_red = create_entity(TeamBase, colors.red, 800, 0)
 
@@ -117,10 +120,12 @@ create_entity(Wall, 1000, 0, width, 300*2)
 create_entity(Wall, 0, -300, 1000*2, width)
 create_entity(Wall, 0, 300, 1000*2, width)
 
+player = create_entity(PlayerCharacter, base_blue)
+camera:track(player)
+
 create_entity(AICharacter, base_blue)
 create_entity(AICharacter, base_red)
 create_entity(AICharacter, base_red)
 
-player = create_entity(PlayerCharacter, base_blue)
-player:remove_health(9.99)
+player:add_on_respawn_callback(function() camera:shake(2) end)
 

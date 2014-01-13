@@ -9,6 +9,8 @@ local TeamBase = class('TeamBase', Entity)
 :include(require 'Health')
 :include(require 'HealthRegeneration')
 :include(require 'NeverLocked')
+:include(require 'Respawner')
+:include(require 'RespawnManager')
 
 :include(require 'VisualRectangle')
 :include(require 'HealthBar')
@@ -23,15 +25,18 @@ function TeamBase:init(color, x, y)
 	self:init_linkable()
 	self:init_health(100)
 	self:init_health_regeneration(0.001)
+	self:init_respawner(2.5)
+	self:init_respawn_manager({self})
 
 	self:init_visual_rectangle(color.visual_base)
 	self:init_health_bar(100, 20, self.h/2)
 
 	self:init_physic_body({sensor=true})
-	self.is_base = true
 end
 
 function TeamBase:update(dt)
+	self:update_respawn_manager(dt)
+	self:update_respawner(dt)
 end
 
 function TeamBase:draw()

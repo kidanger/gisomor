@@ -21,8 +21,8 @@ function _:add_health(num)
 	end
 end
 
-function _:is_dead()
-	return self.health == 0
+function _:reset_health()
+	self.health = self.maxhealth
 end
 
 return _

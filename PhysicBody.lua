@@ -21,5 +21,11 @@ function _:init_physic_body(shape_prop, body_prop)
 	self.angle = self.body:get_angle()
 end
 
+function _:set_position(x, y)
+	self.body:set_position(x/R, y/R)
+	self.x = x
+	self.y = y
+end
+
 return _
 
