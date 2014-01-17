@@ -4,16 +4,20 @@ local _ = {}
 
 function _:init_physic_body(shape_prop, body_prop)
 	self.shape = self:get_shape()
+	self.shape:set_sensor(self.is_sensor or false)
 	for k, v in pairs(shape_prop or {}) do
 		local f = self.shape['set_' .. k]
 		f(self.shape, v)
 	end
 
-	self.body = physic.new_body(self.is_dynamic, self.shape)
-	self.body:set_position(self.x / R, self.y / R)
+	self.body = physic.new_body(self.is_dynamic, self.x / R, self.y / R, self.shape)
 	for k, v in pairs(body_prop or {}) do
 		local f = self.body['set_' .. k]
-		f(self.body, v)
+		if type(v) == 'table' then
+			f(self.body, unpack(v))
+		else
+			f(self.body, v)
+		end
 	end
 
 	self.body.parent = self
@@ -25,6 +29,11 @@ function _:set_position(x, y)
 	self.body:set_position(x/R, y/R)
 	self.x = x
 	self.y = y
+end
+
+function _:set_angle(angle)
+	self.body:set_angle(angle)
+	self.angle = angle
 end
 
 return _

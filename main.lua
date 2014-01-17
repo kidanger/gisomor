@@ -2,6 +2,7 @@ local drystal = require 'drystal'
 local physic = require 'physic'
 
 local PlayerCharacter = require 'PlayerCharacter'
+local PlayerControl = require 'PlayerCharacter'
 local AICharacter = require 'AICharacter'
 local CapturePoint = require 'CapturePoint'
 local TeamBase = require 'TeamBase'
@@ -13,7 +14,7 @@ local entities = {}
 local player
 local camera
 
-local W, H = 600, 480
+W, H = 600, 480
 Camera.W = W
 Camera.H = H
 local zoom = drystal.camera.zoom
@@ -24,8 +25,17 @@ function drystal.update(dt)
 	for _, e in ipairs(entities) do
 		e:update(dt)
 	end
-
 	physic.update(dt)
+
+	local max = #entities
+	for i, e in ipairs(entities) do
+		if e.destroy_me then
+			entities[i] = entities[max]
+			entities[max] = nil
+			e:on_destroy()
+			max = max - 1
+		end
+	end
 end
 
 function drystal.draw()
@@ -48,15 +58,23 @@ end
 function drystal.key_release(k)
 	player:key_release(k)
 end
+function drystal.mouse_motion(x, y, dx, dy)
+	player:mouse_motion(x, y, dx, dy)
+end
 function drystal.mouse_press(x, y, b)
 	if b == 4 then
 		camera:zoom_in()
 	elseif b == 5 then
 		camera:zoom_out()
+	else
+		player:mouse_press(x, y, b)
 	end
 end
+function drystal.mouse_release(x, y, b)
+	player:mouse_release(x, y, b)
+end
 
-local function create_entity(cl, ...)
+function create_entity(cl, ...)
 	local ent = cl:new(...)
 	table.insert(entities, ent)
 	return ent
@@ -127,5 +145,5 @@ create_entity(AICharacter, base_blue)
 create_entity(AICharacter, base_red)
 create_entity(AICharacter, base_red)
 
-player:add_on_respawn_callback(function() camera:shake(2) end)
+-- player:add_on_respawn_callback(function() camera:shake(2) end)
 

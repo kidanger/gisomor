@@ -3,6 +3,7 @@ local _ = {}
 function _:init_health(maxhealth)
 	self.health = maxhealth
 	self.maxhealth = maxhealth
+	self.has_health = true
 end
 
 function _:remove_health(num)

@@ -11,6 +11,7 @@ local TeamBase = class('TeamBase', Entity)
 :include(require 'NeverLocked')
 :include(require 'Respawner')
 :include(require 'RespawnManager')
+:include(require 'IsSensor')
 
 :include(require 'VisualRectangle')
 :include(require 'HealthBar')
@@ -31,7 +32,7 @@ function TeamBase:init(color, x, y)
 	self:init_visual_rectangle(color.visual_base)
 	self:init_health_bar(100, 20, self.h/2)
 
-	self:init_physic_body({sensor=true})
+	self:init_physic_body()
 end
 
 function TeamBase:update(dt)
@@ -42,8 +43,6 @@ end
 function TeamBase:draw()
 	self:draw_visual_rectangle()
 	self:draw_health_bar()
-	--debug
-	self:draw_links()
 end
 
 return TeamBase

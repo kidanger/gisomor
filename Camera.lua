@@ -11,7 +11,7 @@ function Camera:init()
 	Entity.init(self, 0, 0)
 
 	self:init_shaking()
-	self:init_tracking()
+	self:init_tracking(.2)
 
 	self.zoom = 1
 end

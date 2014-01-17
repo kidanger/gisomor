@@ -5,6 +5,7 @@ function _:init_physic_control(speed)
 	self.down = false
 	self.left = false
 	self.right = false
+	self.target_angle = 0
 	self.speed = speed
 end
 
@@ -40,8 +41,9 @@ function _:update_physic_control(dt)
 
 		if moving then
 			self.body:set_linear_velocity(dx*speed, dy*speed)
-
-			local desire_angle = math.atan2(dy, dx) % (math.pi*2)
+		end
+		do
+			local desire_angle = self.target_angle --math.atan2(dy, dx) % (math.pi*2)
 			local angle = (self.body:get_angle()) % (math.pi*2)
 			-- little hack to make angle works as expected (search shorter angle)
 			local delta1 = desire_angle - angle
@@ -53,13 +55,10 @@ function _:update_physic_control(dt)
 					delta_angle = d
 				end
 			end
-			self.body:set_angular_velocity(delta_angle*10)
-		else
-			self.body:set_angular_velocity(0)
+			self.body:set_angular_velocity(delta_angle*20)
 		end
 	end
 end
 
 return _
-
 

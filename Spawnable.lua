@@ -10,15 +10,14 @@ function _:add_on_respawn_callback(callback)
 end
 
 function _:on_respawn(respawner)
-	self.dead = false
-	self:set_position(respawner.x, respawner.y)
+	self.x = respawner.x
+	self.y = respawner.y
 	for _, f in ipairs(self.on_respawn_callbacks) do
 		f(self)
 	end
 end
 
 function _:ask_respawn()
-	assert(self.dead)
 	self.associated_respawn_manager:add_to_respawn_list(self)
 end
 
