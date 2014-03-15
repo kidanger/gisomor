@@ -21,7 +21,6 @@ local zoom = drystal.camera.zoom
 R = 32
 
 function drystal.update(dt)
-	dt = dt / 1000
 	for _, e in ipairs(entities) do
 		e:update(dt)
 	end
