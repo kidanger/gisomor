@@ -1,7 +1,7 @@
 local _ = {}
 
 function _:path_is_locked(tocolor)
-	for _, n in ipairs(self.nodes[tocolor]) do
+	for _, n in ipairs(self.nodes[tocolor] or {}) do
 		if n.color == tocolor and not n:path_is_locked(tocolor) then
 			return false
 		end

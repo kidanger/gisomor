@@ -43,6 +43,7 @@ end
 function TeamBase:draw()
 	self:draw_visual_rectangle()
 	self:draw_health_bar()
+	--self:draw_links()
 end
 
 return TeamBase
