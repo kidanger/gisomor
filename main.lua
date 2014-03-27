@@ -118,3 +118,15 @@ create_entity(AICharacter, map:get_blue_base())
 create_entity(AICharacter, map:get_red_base())
 create_entity(AICharacter, map:get_red_base())
 
+function drystal.prereload()
+	_X, _Y = player.x, player.y
+	_Z = camera.zoom
+end
+
+function drystal.postreload()
+	camera.targetzoom = _Z
+	player:add_on_respawn_callback_once(function()
+		player:set_position(_X, _Y)
+	end)
+end
+
