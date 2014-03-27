@@ -14,7 +14,7 @@ local Node = class('Node', Entity)
 :include(require 'LockDependsOnParents')
 :include(require 'IsSensor')
 
-:include(require 'VisualCapturePoint')
+:include(require 'VisualNode')
 :include(require 'CaptureBar')
 
 :include(require 'PhysicBody')
@@ -39,7 +39,7 @@ function Node:init(color, x, y, radius)
 end
 
 function Node:draw(x, y)
-	self:draw_visual_capture_point()
+	self:draw_visual_node()
 	if self.points < self.maxpoints then
 		self:draw_capture_bar()
 	end

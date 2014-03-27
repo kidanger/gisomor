@@ -15,6 +15,7 @@ function _:draw_health_bar()
 	local x = self.x - self.health_bar_width / 2
 	local y = self.y - self.health_bar_height / 2 + self.health_bar_offset_y
 
+	drystal.set_alpha(255)
 	drystal.set_color(0, 0, 0)
 	drystal.draw_rect(x, y, self.health_bar_width, self.health_bar_height)
 

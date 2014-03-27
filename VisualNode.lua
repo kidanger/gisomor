@@ -2,7 +2,7 @@ local drystal = require 'drystal'
 
 local _ = {}
 
-function _:draw_visual_capture_point()
+function _:draw_visual_node()
 	local alpha = 255
 	if self.is_being_captured then
 		alpha = (math.sin(self.time * 4.2) * .5 + .5) * 150 + 100

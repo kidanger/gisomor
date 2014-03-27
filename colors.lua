@@ -1,4 +1,4 @@
-return {
+local colors = {
 	blue={
 		name='blue',
 		visual_character={50, 50, 200},
@@ -9,7 +9,6 @@ return {
 		name='red',
 		visual_character={200, 50, 50},
 		visual_capture_point={100, 10, 10},
-		visual_base={170, 50, 50},
 		visual_base={120, 30, 30},
 	},
 	neutral={
@@ -19,3 +18,9 @@ return {
 		visual_base={0, 0, 0},
 	},
 }
+colors.blue.opposite = colors.red
+colors.red.opposite = colors.blue
+colors.neutral.opposite = colors.neutral
+
+return colors
+

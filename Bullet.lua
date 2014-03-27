@@ -36,7 +36,7 @@ function Bullet:init(parent, x, y, angle)
 	self.is_bullet = true
 	self:add_begin_callback(function (self, other)
 		if other ~= parent and not other.is_bullet then
-			if other.has_health then
+			if other.has_health and not other.is_protected then
 				other:remove_health(1)
 				self:destroy()
 			elseif not other.is_sensor then

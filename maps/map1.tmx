@@ -4,7 +4,7 @@
   <image source="../tileset.png" width="256" height="256"/>
  </tileset>
  <objectgroup name="objects" width="100" height="50">
-  <object name="sb1" type="spawn" x="160" y="192" width="64" height="64">
+  <object name="sb1" type="spawn" x="352" y="544" width="64" height="64">
    <properties>
     <property name="color" value="blue"/>
    </properties>
