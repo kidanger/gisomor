@@ -55,7 +55,7 @@ function _:update_physic_control(dt)
 					delta_angle = d
 				end
 			end
-			self.body:set_angular_velocity(delta_angle*20)
+			self.body:set_angular_velocity(delta_angle*15)
 		end
 	end
 end

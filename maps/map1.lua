@@ -151,7 +151,7 @@ return {
           name = "rb",
           type = "base",
           shape = "ellipse",
-          x = 2784,
+          x = 2720,
           y = 640,
           width = 320,
           height = 320,

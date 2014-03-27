@@ -14,15 +14,16 @@ function Camera:init()
 	self:init_tracking(.2)
 
 	self.zoom = 1
+	self.targetzoom = 1
 end
 
 function Camera:update(dt)
 	self:update_shaking(dt)
+	self.zoom = self.zoom + (self.targetzoom - self.zoom) * .1
 	if not self.track.dead then
 		self:update_tracking(dt)
 	end
 end
-
 
 function Camera:setup()
 	drystal.camera.x = self.W / 2 - self.x
@@ -31,11 +32,11 @@ function Camera:setup()
 end
 
 function Camera:zoom_out()
-	self.zoom = self.zoom / 1.2
+	self.targetzoom = self.targetzoom / 1.2
 end
 
 function Camera:zoom_in()
-	self.zoom = self.zoom * 1.2
+	self.targetzoom = self.targetzoom * 1.2
 end
 
 return Camera

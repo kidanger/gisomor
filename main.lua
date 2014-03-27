@@ -14,7 +14,7 @@ local player
 local camera
 local map
 
-W, H = 600, 480
+W, H = 800, 600
 Camera.W = W
 Camera.H = H
 local zoom = drystal.camera.zoom

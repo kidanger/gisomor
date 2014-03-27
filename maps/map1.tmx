@@ -70,7 +70,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object name="rb" type="base" x="2784" y="640" width="320" height="320">
+  <object name="rb" type="base" x="2720" y="640" width="320" height="320">
    <properties>
     <property name="color" value="red"/>
     <property name="link1" value="rn1"/>
