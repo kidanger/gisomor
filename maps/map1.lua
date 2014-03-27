@@ -32,25 +32,29 @@ return {
       objects = {
         {
           name = "sb1",
-          type = "bluespawn",
+          type = "spawn",
           shape = "rectangle",
           x = 160,
           y = 192,
           width = 64,
           height = 64,
           visible = true,
-          properties = {}
+          properties = {
+            ["color"] = "blue"
+          }
         },
         {
           name = "sb2",
-          type = "bluespawn",
+          type = "spawn",
           shape = "rectangle",
           x = 128,
           y = 1344,
           width = 64,
           height = 64,
           visible = true,
-          properties = {}
+          properties = {
+            ["color"] = "blue"
+          }
         },
         {
           name = "bb",
@@ -160,25 +164,29 @@ return {
         },
         {
           name = "sr1",
-          type = "redspawn",
+          type = "spawn",
           shape = "rectangle",
           x = 2912,
           y = 192,
           width = 64,
           height = 64,
           visible = true,
-          properties = {}
+          properties = {
+            ["color"] = "red"
+          }
         },
         {
           name = "sr2",
-          type = "redspawn",
+          type = "spawn",
           shape = "rectangle",
           x = 2944,
           y = 1344,
           width = 64,
           height = 64,
           visible = true,
-          properties = {}
+          properties = {
+            ["color"] = "red"
+          }
         },
         {
           name = "",

@@ -4,8 +4,16 @@
   <image source="../tileset.png" width="256" height="256"/>
  </tileset>
  <objectgroup name="objects" width="100" height="50">
-  <object name="sb1" type="bluespawn" x="160" y="192" width="64" height="64"/>
-  <object name="sb2" type="bluespawn" x="128" y="1344" width="64" height="64"/>
+  <object name="sb1" type="spawn" x="160" y="192" width="64" height="64">
+   <properties>
+    <property name="color" value="blue"/>
+   </properties>
+  </object>
+  <object name="sb2" type="spawn" x="128" y="1344" width="64" height="64">
+   <properties>
+    <property name="color" value="blue"/>
+   </properties>
+  </object>
   <object name="bb" type="base" x="160" y="640" width="320" height="320">
    <properties>
     <property name="color" value="blue"/>
@@ -70,8 +78,16 @@
    </properties>
    <ellipse/>
   </object>
-  <object name="sr1" type="redspawn" x="2912" y="192" width="64" height="64"/>
-  <object name="sr2" type="redspawn" x="2944" y="1344" width="64" height="64"/>
+  <object name="sr1" type="spawn" x="2912" y="192" width="64" height="64">
+   <properties>
+    <property name="color" value="red"/>
+   </properties>
+  </object>
+  <object name="sr2" type="spawn" x="2944" y="1344" width="64" height="64">
+   <properties>
+    <property name="color" value="red"/>
+   </properties>
+  </object>
   <object type="wall" x="0" y="0" width="3200" height="64"/>
   <object type="wall" x="0" y="1536" width="3200" height="64"/>
   <object type="wall" x="0" y="64" width="64" height="1472"/>

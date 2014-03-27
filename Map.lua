@@ -6,6 +6,7 @@ local colors = require 'colors'
 local TeamBase = require 'TeamBase'
 local Wall = require 'Wall'
 local Node = require 'Node'
+local Spawn = require 'Spawn'
 
 local Map = class('Map')
 
@@ -31,8 +32,19 @@ function Map:add_node(color, x, y, radius)
 	return n
 end
 
+function Map:add_spawn(color, x, y)
+	local s = create_entity(Spawn, color, x, y)
+	return s
+end
+
 function Map:link(obj1, obj2, color)
 	obj1:link(obj2, color)
+end
+
+function Map:active_spawn(spawn)
+	assert(self.bases[spawn.color] ~= nil)
+	local base = self.bases[spawn.color]
+	base:add_respawner(spawn)
 end
 
 function Map:get_blue_base()

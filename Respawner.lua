@@ -23,6 +23,5 @@ function _:update_respawner(dt)
 	end
 end
 
-
 return _
 

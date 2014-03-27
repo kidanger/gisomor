@@ -28,6 +28,12 @@ function TiledMapLoader:load(map, filename)
 				assert(found, "link to " .. target.name .. " is impossible from " .. obj.name)
 			end
 		end
+		-- add respawners
+		for _, obj in ipairs(layer.objects) do
+			if obj.type == 'spawn' then
+				map:active_spawn(obj.created)
+			end
+		end
 	end
 end
 
@@ -42,6 +48,8 @@ function TiledMapLoader:add_object(map, obj)
 		e = map:add_node(color, obj.x + obj.width / 2, obj.y + obj.height / 2, obj.width / 2)
 	elseif obj.type == 'wall' then
 		e = map:add_wall(obj.x + obj.width / 2, obj.y + obj.height / 2, obj.width, obj.height)
+	elseif obj.type == 'spawn' then
+		e = map:add_spawn(color, obj.x + obj.width / 2, obj.y + obj.height / 2)
 	end
 	obj.created = e
 

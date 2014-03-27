@@ -46,7 +46,9 @@ function Character:init(associated_base)
 	self:init_physic_control(20)
 	self:init_fire_control()
 
-	self:die()
+	self.dead = true
+	self.body:set_active(false)
+	self:ask_respawn()
 end
 
 function Character:draw(x, y)
