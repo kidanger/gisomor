@@ -24,6 +24,10 @@ function _:key_press(key)
 		self._boosting = true
 	elseif key == 'k' then
 		self:remove_health(3.4)
+	elseif key == 'w' then
+		self:select_next_weapon()
+	elseif key == 'l' then
+		self:select_previous_weapon()
 	elseif interesting_keys[key] then
 		self[key] = true
 	end

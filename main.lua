@@ -8,6 +8,7 @@ local AICharacter = require 'AICharacter'
 local Node = require 'Node'
 local Camera = require 'Camera'
 local colors = require 'colors'
+local weapons = require 'weapons'
 
 local entities = {}
 local player
@@ -44,6 +45,18 @@ function drystal.draw()
 	camera:setup()
 	for _, e in ipairs(entities) do
 		e:draw()
+	end
+
+	drystal.camera:reset()
+	for j, w in pairs(player.weapons) do
+		if player.weapon == w then
+			drystal.set_color(100, 0, 0)
+		else
+			drystal.set_color(0, 0, 0)
+		end
+		for i = 1, player.ammunitions[w] do
+			drystal.draw_rect(i * 10, j * 15, 5, 10)
+		end
 	end
 end
 
@@ -112,6 +125,9 @@ camera = create_entity(Camera, player)
 map = Map:new 'map1'
 
 player = create_entity(PlayerCharacter, map:get_blue_base())
+player:give_weapon(weapons.gun)
+player:give_weapon(weapons.sniper)
+player:give_weapon(weapons.shotgun)
 camera:track(player)
 
 create_entity(AICharacter, map:get_blue_base())
@@ -125,8 +141,11 @@ end
 
 function drystal.postreload()
 	camera.targetzoom = _Z
+	camera.zoom = _Z * 1.2
 	player:add_on_respawn_callback_once(function()
 		player:set_position(_X, _Y)
+		camera.x = player.x
+		camera.y = player.y
 	end)
 end
 

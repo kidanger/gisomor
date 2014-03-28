@@ -13,8 +13,9 @@ local Bullet = class('Bullet', Entity)
 :include(require 'PhysicDynamic')
 :include(require 'PhysicCallbacks')
 :include(require 'PhysicDestroyable')
+:include(require 'IsSensor')
 
-function Bullet:init(parent, x, y, angle)
+function Bullet:init(parent, x, y, angle, weapon)
 	Entity.init(self, x, y)
 	self.parent = parent
 
@@ -22,7 +23,8 @@ function Bullet:init(parent, x, y, angle)
 
 	self:init_visual_rectangle({0, 0, 0})
 
-	local speed = 20
+	self.type = weapon.bullet
+	local speed = self.type.speed
 	self:init_physic_body({
 		restitution=1,
 	}, {
@@ -33,21 +35,24 @@ function Bullet:init(parent, x, y, angle)
 	})
 	self:init_physic_callbacks()
 
-	self.is_bullet = true
 	self:add_begin_callback(function (self, other)
-		if other ~= parent and not other.is_bullet then
-			if other.has_health and not other.is_protected then
-				other:remove_health(1)
-				self:destroy()
-			elseif not other.is_sensor then
-				self:destroy()
+		if other.has_health and not other.is_protected and not other.is_sensor then
+			if other ~= parent then
+				other:remove_health(self.type.damage * weapon.damage_factor)
 			end
+			self:destroy()
+		elseif not other.is_sensor then
+			self:destroy()
 		end
 	end)
 end
 
 function Bullet:update(dt)
+	Entity.update(self, dt)
 	self:update_physic_dynamic()
+	if self.time >= self.type.lifetime then
+		self:destroy()
+	end
 end
 
 function Bullet:draw()

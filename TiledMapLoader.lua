@@ -20,7 +20,7 @@ function TiledMapLoader:load(map, filename)
 				local found = false
 				for _, obj2 in ipairs(layer.objects) do
 					if target.name == obj2.name then
-						print(obj.name, 'to', obj2.name)
+						--print(obj.name, 'to', obj2.name)
 						map:link(obj.created, obj2.created, target.color)
 						found = true
 					end
