@@ -6,13 +6,14 @@ local Entity = require 'Entity'
 local Bullet = class('Bullet', Entity)
 :include(require 'Rectangle')
 :include(require 'Destroyable')
+:include(require 'Lifetimed')
 
 :include(require 'VisualRectangle')
 
 :include(require 'PhysicBody')
 :include(require 'PhysicDynamic')
 :include(require 'PhysicCallbacks')
-:include(require 'PhysicDestroyable')
+:include(require 'PhysicDestroyCallback')
 :include(require 'IsSensor')
 
 function Bullet:init(parent, x, y, angle, weapon)
@@ -35,6 +36,10 @@ function Bullet:init(parent, x, y, angle, weapon)
 	})
 	self:init_physic_callbacks()
 
+	self:init_lifetimed(self.type.lifetime)
+	self:init_destroyable()
+	self:init_physic_destroy_callback()
+
 	self:add_begin_callback(function (self, other)
 		if other.has_health and not other.is_protected and not other.is_sensor then
 			if other ~= parent then
@@ -49,10 +54,8 @@ end
 
 function Bullet:update(dt)
 	Entity.update(self, dt)
-	self:update_physic_dynamic()
-	if self.time >= self.type.lifetime then
-		self:destroy()
-	end
+	self:update_physic_dynamic(dt)
+	self:update_lifetime(dt)
 end
 
 function Bullet:draw()
