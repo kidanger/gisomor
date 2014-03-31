@@ -2,6 +2,7 @@ local drystal = require 'drystal'
 local class = require 'class'
 
 local Entity = require 'Entity'
+local ParticleSystem = require 'ParticleSystem'
 
 local Bullet = class('Bullet', Entity)
 :include(require 'Rectangle')
@@ -48,6 +49,7 @@ function Bullet:init(parent, x, y, angle, weapon)
 			self:destroy()
 		elseif not other.is_sensor then
 			self:destroy()
+			create_entity(ParticleSystem, self.x, self.y)
 		end
 	end)
 end
