@@ -7,6 +7,7 @@ end
 function _:destroy()
 	self.destroy_me = true
 end
+
 function _:add_on_destroy_callback(callback)
 	table.insert(self.on_destroy_callbacks, callback)
 end

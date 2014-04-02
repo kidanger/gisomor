@@ -1,5 +1,3 @@
-local colors = require 'colors'
-
 local _ = {}
 
 function _:init_ai_control()

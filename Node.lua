@@ -5,21 +5,24 @@ local Entity = require 'Entity'
 
 local Node = class('Node', Entity)
 
-:include(require 'Colored')
-:include(require 'Linkable')
-:include(require 'Capturable')
-:include(require 'Circle')
-:include(require 'Points')
-:include(require 'PointsRegeneration')
-:include(require 'LockDependsOnParents')
-:include(require 'IsSensor')
+:include('core.Colored')
 
-:include(require 'VisualNode')
-:include(require 'CaptureBar')
+:include('core.shape.Circle')
 
-:include(require 'PhysicBody')
-:include(require 'PhysicCallbacks')
-:include(require 'PhysicCaptureCallback')
+:include('core.capture.Linkable')
+:include('core.capture.Capturable')
+
+:include('core.capture.Points')
+:include('core.capture.Regeneration')
+:include('core.capture.LockDependsOnParents')
+
+:include('core.physic.Body')
+:include('core.physic.Callbacks')
+:include('core.physic.CaptureCallback')
+:include('core.physic.Sensor')
+
+:include('visual.Node')
+:include('visual.CaptureBar')
 
 function Node:init(color, x, y, radius)
 	Entity.init(self, x, y)

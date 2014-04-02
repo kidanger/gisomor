@@ -5,25 +5,31 @@ local Entity = require 'Entity'
 
 local Character = class('Character', Entity)
 
-:include(require 'Rectangle')
-:include(require 'Colored')
-:include(require 'Health')
-:include(require 'HealthRegeneration')
-:include(require 'CanCapture')
-:include(require 'Spawnable')
-:include(require 'HealthRespawnCallback')
-:include(require 'PhysicRespawnCallback')
-:include(require 'WeaponEquipped')
-:include(require 'AmmoEquipped')
-:include(require 'AmmoRegeneration')
+:include('core.Colored')
 
-:include(require 'VisualRectangle')
-:include(require 'HealthBar')
+:include('core.shape.Rectangle')
 
-:include(require 'PhysicBody')
-:include(require 'PhysicControl')
-:include(require 'PhysicDynamic')
-:include(require 'FireControl')
+:include('core.health.Health')
+:include('core.health.Regeneration')
+
+:include('core.capture.CanCapture')
+
+:include('core.spawn.Respawnable')
+:include('core.spawn.Callbacks')
+:include('core.spawn.HealthRespawnCallback')
+:include('core.spawn.PhysicRespawnCallback')
+
+:include('core.combat.weapon.Equipped')
+:include('core.combat.weapon.Controlled')
+:include('core.combat.ammo.Equipped')
+:include('core.combat.ammo.Regeneration')
+
+:include('core.physic.Body')
+:include('core.physic.Dynamic')
+:include('core.physic.Controlled')
+
+:include('visual.Rectangle')
+:include('visual.HealthBar')
 
 function Character:init(associated_base)
 	local color = associated_base.color
@@ -35,12 +41,12 @@ function Character:init(associated_base)
 	self:init_health(10)
 	self:init_health_regeneration(1)
 	self:init_respawnable(associated_base)
+	self:init_respawn_callbacks()
 	self:init_weapon_equipped()
 	self:init_ammo()
 	self:init_ammo_regeneration()
 	self:init_health_respawn_callback()
 	self:init_physic_respawn_callback()
-	self:add_on_respawn_callback(function() self.dead = false end)
 
 	self:init_visual_rectangle(color.visual_character)
 	self:init_health_bar(60, 10, -self.h/2 - 8)
@@ -51,6 +57,8 @@ function Character:init(associated_base)
 	})
 	self:init_physic_control(20)
 	self:init_fire_control()
+
+	self:add_on_respawn_callback(function() self.dead = false end)
 
 	self.dead = true
 	self.body:set_active(false)

@@ -6,7 +6,7 @@ function _:init()
     self.is_protected = false
 end
 
-function _:update_protectable(dt)
+function _:update_protected(dt)
     self.is_protected = true
     for _, n in ipairs(self.nodes[self.color.opposite] or {}) do
         if n.color == self.color.opposite then

@@ -3,7 +3,9 @@ local class = require 'class'
 local Character = require 'Character'
 
 local PlayerCharacter = class('PlayerCharacter', Character)
-:include(require 'PlayerControl')
+
+:include('player.KeyboardControl')
+:include('player.MouseControl')
 
 return PlayerCharacter
 

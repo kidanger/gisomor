@@ -3,19 +3,22 @@ local class = require 'class'
 local Entity = require 'Entity'
 
 local TeamBase = class('TeamBase', Entity)
-:include(require 'Colored')
-:include(require 'Linkable')
-:include(require 'Rectangle')
-:include(require 'Health')
-:include(require 'HealthRegeneration')
-:include(require 'NeverLocked')
-:include(require 'Protectable')
-:include(require 'RespawnManager')
+:include('core.Colored')
+:include('core.shape.Rectangle')
 
-:include(require 'VisualBase')
-:include(require 'HealthBar')
+:include('core.health.Health')
+:include('core.health.Regeneration')
 
-:include(require 'PhysicBody')
+:include('core.capture.Linkable')
+:include('core.capture.Protected')
+:include('core.capture.NeverLocked')
+
+:include('core.spawn.RespawnManager')
+
+:include('core.physic.Body')
+
+:include('visual.Base')
+:include('visual.HealthBar')
 
 function TeamBase:init(color, x, y)
 	Entity.init(self, x, y)
@@ -36,7 +39,7 @@ function TeamBase:update(dt)
 	Entity.update(self, dt)
 	self:update_respawn_manager(dt)
 	self:regenerate_health(dt)
-	self:update_protectable(dt)
+	self:update_protected(dt)
 end
 
 function TeamBase:draw()

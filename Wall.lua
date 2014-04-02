@@ -5,12 +5,11 @@ local Entity = require 'Entity'
 
 local Wall = class('Wall', Entity)
 
-:include(require 'Rectangle')
+:include('core.shape.Rectangle')
 
-:include(require 'VisualRectangle')
+:include('core.physic.Body')
 
-:include(require 'PhysicBody')
-
+:include('visual.Rectangle')
 
 function Wall:init(x, y, w, h)
 	Entity.init(self, x, y)

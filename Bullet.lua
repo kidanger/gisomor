@@ -5,17 +5,18 @@ local Entity = require 'Entity'
 local ParticleSystem = require 'ParticleSystem'
 
 local Bullet = class('Bullet', Entity)
-:include(require 'Rectangle')
-:include(require 'Destroyable')
-:include(require 'Lifetimed')
+:include('core.shape.Rectangle')
 
-:include(require 'VisualRectangle')
+:include('core.health.Destroyable')
+:include('core.health.Lifetimed')
 
-:include(require 'PhysicBody')
-:include(require 'PhysicDynamic')
-:include(require 'PhysicCallbacks')
-:include(require 'PhysicDestroyCallback')
-:include(require 'IsSensor')
+:include('core.physic.Body')
+:include('core.physic.Dynamic')
+:include('core.physic.Callbacks')
+:include('core.physic.DestroyCallback')
+:include('core.physic.Sensor')
+
+:include('visual.Rectangle')
 
 function Bullet:init(parent, x, y, angle, weapon)
 	Entity.init(self, x, y)
@@ -23,7 +24,7 @@ function Bullet:init(parent, x, y, angle, weapon)
 
 	self:init_rectangle(16, 8)
 
-	self:init_visual_rectangle({0, 0, 0})
+	self:init_visual_rectangle({250, 250, 250})
 
 	self.type = weapon.bullet
 	local speed = self.type.speed

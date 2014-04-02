@@ -18,7 +18,6 @@ local map
 W, H = 800, 600
 Camera.W = W
 Camera.H = H
-local zoom = drystal.camera.zoom
 R = 32
 
 function drystal.update(dt)

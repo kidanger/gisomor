@@ -5,8 +5,9 @@ local class = require 'class'
 local Entity = require 'Entity'
 
 local ParticleSystem = class('ParticleSystem', Entity)
-:include(require 'Destroyable')
-:include(require 'Lifetimed')
+
+:include('core.health.Destroyable')
+:include('core.health.Lifetimed')
 
 function ParticleSystem:init(x, y, angle)
 	Entity.init(self, x, y)

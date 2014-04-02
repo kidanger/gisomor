@@ -4,7 +4,7 @@ local class = require 'class'
 local Character = require 'Character'
 
 local AICharacter = class('AICharacter', Character)
-:include(require 'RandomAIControl')
+:include('ai.RandomControl')
 
 function AICharacter:init(...)
 	Character.init(self, ...)

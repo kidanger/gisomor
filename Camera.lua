@@ -4,8 +4,9 @@ local class = require 'class'
 local Entity = require 'Entity'
 
 local Camera = class('Camera', Entity)
-:include(require 'Shaking')
-:include(require 'Tracking')
+
+:include('core.Shaking')
+:include('core.Tracking')
 
 function Camera:init()
 	Entity.init(self, 0, 0)
@@ -14,7 +15,7 @@ function Camera:init()
 	self:init_tracking(.2)
 
 	self.zoom = 1
-	self.targetzoom = 1
+	self.targetzoom = 0.7
 end
 
 function Camera:update(dt)

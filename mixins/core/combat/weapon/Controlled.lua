@@ -1,4 +1,8 @@
-local _ = {}
+local _ = {
+	require = {
+		'angle',
+	}
+}
 
 local Bullet = require 'Bullet'
 

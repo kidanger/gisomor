@@ -81,6 +81,9 @@ local function _setDefaultInitMethod(aClass, super)
 end
 
 local function _includeMixin(aClass, mixin)
+  if type(mixin) == 'string' then
+    mixin = require ('mixins.' .. mixin)
+  end
   assert(type(mixin)=='table', "mixin must be a table")
   for name,method in pairs(mixin) do
     if name ~= "included" and name ~= "static" then aClass[name] = method end

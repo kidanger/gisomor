@@ -3,11 +3,14 @@ local class = require 'class'
 local Entity = require 'Entity'
 
 local Spawn = class('Spawn', Entity)
-:include(require 'Colored')
-:include(require 'Circle')
-:include(require 'Respawner')
 
-:include(require 'VisualCircle')
+:include('core.Colored')
+
+:include('core.shape.Circle')
+
+:include('core.spawn.Respawner')
+
+:include('visual.Circle')
 
 function Spawn:init(color, x, y)
 	Entity.init(self, x, y)
