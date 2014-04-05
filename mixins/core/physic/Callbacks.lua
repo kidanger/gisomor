@@ -13,15 +13,15 @@ function _:add_end_callback(f)
 	table.insert(self.end_collide_callbacks, f)
 end
 
-function _:begin_collide(other)
+function _:begin_collide(other, ...)
 	for _, f in ipairs(self.begin_collide_callbacks) do
-		f(self, other)
+		f(self, other, ...)
 	end
 end
 
-function _:end_collide(other)
+function _:end_collide(other, ...)
 	for _, f in ipairs(self.end_collide_callbacks) do
-		f(self, other)
+		f(self, other, ...)
 	end
 end
 

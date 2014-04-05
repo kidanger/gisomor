@@ -14,7 +14,7 @@ local Bullet = class('Bullet', Entity)
 :include('core.physic.Dynamic')
 :include('core.physic.Callbacks')
 :include('core.physic.DestroyCallback')
-:include('core.physic.Sensor')
+:include('core.physic.Fast')
 
 :include('visual.Rectangle')
 
@@ -42,7 +42,10 @@ function Bullet:init(parent, x, y, angle, weapon)
 	self:init_destroyable()
 	self:init_physic_destroy_callback()
 
-	self:add_begin_callback(function (self, other)
+	self:add_begin_callback(function (self, other, x, y, normalx, normaly)
+		if self.class == other.class then
+			return
+		end
 		if other.has_health and not other.is_protected and not other.is_sensor then
 			if other ~= parent then
 				other:remove_health(self.type.damage * weapon.damage_factor)
@@ -50,7 +53,12 @@ function Bullet:init(parent, x, y, angle, weapon)
 			self:destroy()
 		elseif not other.is_sensor then
 			self:destroy()
-			create_entity(ParticleSystem, self.x, self.y)
+			local vx, vy = self.body:get_linear_velocity()
+			local dot = normalx * vx + normaly * vy
+			local reflectx = vx - 2 * dot * normalx
+			local reflecty = vy - 2 * dot * normaly
+			local angle = math.atan2(reflecty, reflectx)
+			create_entity(ParticleSystem, x, y, angle)
 		end
 	end)
 end
@@ -63,6 +71,10 @@ end
 
 function Bullet:draw()
 	self:draw_visual_rectangle()
+end
+
+function Bullet:collides_with(other)
+	return self.parent ~= other and other.class ~= self.class
 end
 
 return Bullet

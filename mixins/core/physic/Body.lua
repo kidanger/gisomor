@@ -5,12 +5,14 @@ local _ = {}
 function _:init_physic_body(shape_prop, body_prop)
 	self.shape = self:get_shape()
 	self.shape:set_sensor(self.is_sensor or false)
+
 	for k, v in pairs(shape_prop or {}) do
 		local f = self.shape['set_' .. k]
 		f(self.shape, v)
 	end
 
 	self.body = physic.new_body(self.is_dynamic, self.x / R, self.y / R, self.shape)
+	self.body:set_bullet(self.is_fast or false)
 	for k, v in pairs(body_prop or {}) do
 		local f = self.body['set_' .. k]
 		if type(v) == 'table' then

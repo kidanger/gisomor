@@ -91,14 +91,14 @@ function create_entity(cl, ...)
 	return ent
 end
 
-local function begin_collide(body1, body2)
+local function begin_collide(body1, body2, x, y, normalx, normaly)
 	local p1 = body1.parent
 	local p2 = body2.parent
 	if p1.begin_collide then
-		p1:begin_collide(p2)
+		p1:begin_collide(p2, x*R, y*R, normalx, normaly)
 	end
 	if p2.begin_collide then
-		p2:begin_collide(p1)
+		p2:begin_collide(p1, x*R, y*R, -normalx, -normaly)
 	end
 	return true
 end
@@ -114,8 +114,20 @@ local function end_collide(body1, body2)
 	end
 end
 
+local function presolve(body1, body2)
+	local p1 = body1.parent
+	local p2 = body2.parent
+	if p1.collides_with and not p1:collides_with(p2) then
+		return false
+	end
+	if p2.collides_with and not p2:collides_with(p1) then
+		return false
+	end
+	return true
+end
+
 physic.create_world(0, 0)
-physic.on_collision(begin_collide, end_collide)
+physic.on_collision(begin_collide, end_collide, presolve)
 
 drystal.resize(W, H)
 

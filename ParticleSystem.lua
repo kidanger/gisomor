@@ -19,6 +19,7 @@ function ParticleSystem:init(x, y, angle)
 	self.system:add_size(0, 8)
 	self.system:add_size(1, 0)
 	self.system:set_lifetime(1)
+	self.system:set_direction(angle - math.pi/6, angle + math.pi/6)
 
 	self.system:set_initial_velocity(80, 120)
 	self.system:set_initial_acceleration(-120)
