@@ -20,9 +20,6 @@ local Character = class('Character', Entity)
 :include('core.spawn.PhysicRespawnCallback')
 
 :include('core.combat.weapon.Equipped')
-:include('core.combat.weapon.Controlled')
-:include('core.combat.ammo.Equipped')
-:include('core.combat.ammo.Regeneration')
 
 :include('core.physic.Body')
 :include('core.physic.Dynamic')
@@ -43,8 +40,6 @@ function Character:init(associated_base)
 	self:init_respawnable(associated_base)
 	self:init_respawn_callbacks()
 	self:init_weapon_equipped()
-	self:init_ammo()
-	self:init_ammo_regeneration()
 	self:init_health_respawn_callback()
 	self:init_physic_respawn_callback()
 
@@ -56,7 +51,6 @@ function Character:init(associated_base)
 		linear_damping=15,
 	})
 	self:init_physic_control(20)
-	self:init_fire_control()
 
 	self:add_on_respawn_callback(function() self.dead = false end)
 
@@ -69,6 +63,10 @@ function Character:draw(x, y)
 	if not self.dead then
 		self:draw_visual_rectangle()
 		self:draw_health_bar()
+
+		if self.weapon then
+			self.weapon:draw()
+		end
 	end
 end
 
@@ -81,8 +79,10 @@ function Character:update(dt)
 		self:update_physic_control(dt)
 		self:update_physic_dynamic(dt)
 		self:regenerate_health(dt)
-		self:regenerate_ammo(dt)
-		self:update_fire_control(dt)
+
+		if self.weapon then
+			self.weapon:update(dt)
+		end
 	end
 end
 

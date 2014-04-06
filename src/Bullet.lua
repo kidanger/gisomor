@@ -5,20 +5,20 @@ local Entity = require 'Entity'
 local ParticleSystem = require 'ParticleSystem'
 
 local Bullet = class('Bullet', Entity)
-:include('core.shape.Rectangle')
+:include 'core.shape.Rectangle'
 
-:include('core.health.Destroyable')
-:include('core.health.Lifetimed')
+:include 'core.health.Destroyable'
+:include 'core.health.Lifetimed'
 
-:include('core.physic.Body')
-:include('core.physic.Dynamic')
-:include('core.physic.Callbacks')
-:include('core.physic.DestroyCallback')
-:include('core.physic.Fast')
+:include 'core.physic.Body'
+:include 'core.physic.Dynamic'
+:include 'core.physic.Callbacks'
+:include 'core.physic.DestroyCallback'
+:include 'core.physic.Fast'
 
 :include('visual.Rectangle')
 
-function Bullet:init(parent, x, y, angle, weapon)
+function Bullet:init(parent, x, y, angle, weapon_type)
 	Entity.init(self, x, y)
 	self.parent = parent
 
@@ -26,7 +26,7 @@ function Bullet:init(parent, x, y, angle, weapon)
 
 	self:init_visual_rectangle({250, 250, 250})
 
-	self.type = weapon.bullet
+	self.type = weapon_type.bullet_type
 	local speed = self.type.speed
 	self:init_physic_body({
 		restitution=1,
@@ -48,7 +48,7 @@ function Bullet:init(parent, x, y, angle, weapon)
 		end
 		if other.has_health and not other.is_protected and not other.is_sensor then
 			if other ~= parent then
-				other:remove_health(self.type.damage * weapon.damage_factor)
+				other:remove_health(self.type.damage * weapon_type.damage_factor)
 			end
 			self:destroy()
 		elseif not other.is_sensor then

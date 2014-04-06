@@ -1,26 +1,23 @@
 local _ = {}
 
-function _:init_ammo()
-	self.ammunitions = {}
+function _:init_ammo(max)
+	self.ammo_max = max
+	self.ammo = max
 end
 
-function _:has_ammo_left()
-	return self.ammunitions[self.weapon] > 0
-end
-
-function _:consume_ammo()
-	assert(self:has_ammo_left())
-	self.ammunitions[self.weapon] = self.ammunitions[self.weapon] - 1
-end
-
-function _:add_ammo(weapon, amount)
-	if not self.ammunitions[weapon] then
-		self.ammunitions[weapon] = 0
+function _:consume_ammo(amount)
+	self.ammo = self.ammo - amount
+	if self.ammo < 0 then
+		self.ammo = 0
 	end
-	if self.ammunitions[weapon] + amount > weapon.ammo_max then
-		self.ammunitions[weapon] = weapon.ammo_max
+end
+
+
+function _:add_ammo(amount)
+	if self.ammo + amount < self.ammo_max then
+		self.ammo = self.ammo + amount
 	else
-		self.ammunitions[weapon] = self.ammunitions[weapon] + amount
+		self.ammo = self.ammo_max
 	end
 end
 

@@ -1,14 +1,16 @@
 local drystal = require 'drystal'
 local physic = require 'physic'
 
+package.path = package.path .. ';src/?.lua'
+package.path = package.path .. ';lib/?.lua'
+
 local Map = require 'Map'
 local PlayerCharacter = require 'PlayerCharacter'
 local PlayerControl = require 'PlayerCharacter'
 local AICharacter = require 'AICharacter'
 local Node = require 'Node'
 local Camera = require 'Camera'
-local colors = require 'colors'
-local weapons = require 'weapons'
+local weapons = require 'data.weapons'
 
 local entities = {}
 local player
@@ -53,7 +55,7 @@ function drystal.draw()
 		else
 			drystal.set_color(0, 0, 0)
 		end
-		for i = 1, player.ammunitions[w] do
+		for i = 1, w.ammo do
 			drystal.draw_rect(i * 10, j * 15, 5, 10)
 		end
 	end

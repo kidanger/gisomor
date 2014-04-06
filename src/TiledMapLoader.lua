@@ -1,7 +1,7 @@
 local class = require 'class'
 
 local MapLoader = require 'MapLoader'
-local colors = require 'colors'
+local colors = require 'data.colors'
 
 local TiledMapLoader = class('TiledMapLoader', MapLoader)
 

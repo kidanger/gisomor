@@ -1,5 +1,6 @@
 local _ = {}
-local colors = require 'colors'
+
+local colors = require 'data.colors'
 
 function _:init_capturable(points_capture_per_second)
 	self.points_capture_per_second = points_capture_per_second

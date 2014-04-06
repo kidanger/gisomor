@@ -1,7 +1,5 @@
 local _ = {}
 
-local colors = require 'colors'
-
 function _:init()
     self.is_protected = false
 end

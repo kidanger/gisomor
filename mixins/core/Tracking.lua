@@ -13,6 +13,9 @@ function _:update_tracking(dt)
 	if self.track then
 		self.x = self.x + (self.track.x - self.x) * self.tracking_ratio
 		self.y = self.y + (self.track.y - self.y) * self.tracking_ratio
+		if self.angle ~= nil then
+			self.angle = self.angle + (self.track.angle - self.angle) * self.tracking_ratio
+		end
 	end
 end
 
