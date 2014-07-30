@@ -1,5 +1,4 @@
 local drystal = require 'drystal'
-local particle = require 'particle'
 local class = require 'class'
 
 local Entity = require 'Entity'
@@ -15,7 +14,7 @@ function ParticleSystem:init(x, y, angle)
 	self:init_lifetimed(1)
 	self:init_destroyable()
 
-	self.system = particle.new_system(self.x, self.y)
+	self.system = drystal.new_system(self.x, self.y)
 	self.system:add_size(0, 8)
 	self.system:add_size(1, 0)
 	self.system:set_lifetime(1)

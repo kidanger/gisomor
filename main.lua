@@ -1,5 +1,4 @@
 local drystal = require 'drystal'
-local physic = require 'physic'
 
 package.path = package.path .. ';src/?.lua'
 package.path = package.path .. ';lib/?.lua'
@@ -26,7 +25,7 @@ function drystal.update(dt)
 	for _, e in ipairs(entities) do
 		e:update(dt)
 	end
-	physic.update(dt)
+	drystal.update_physic(dt)
 
 	local max = #entities
 	for i, e in ipairs(entities) do
@@ -128,8 +127,8 @@ local function presolve(body1, body2)
 	return true
 end
 
-physic.create_world(0, 0)
-physic.on_collision(begin_collide, end_collide, presolve)
+drystal.create_world(0, 0)
+drystal.on_collision(begin_collide, end_collide, presolve)
 
 drystal.resize(W, H)
 
