@@ -8,7 +8,7 @@ function _:init_rectangle(w, h)
 end
 
 function _:get_shape()
-	return drystal.new_shape('box', self.w / R, self.h / R)
+	return drystal.new_shape('box', self.w / R, self.h / R, -self.w/R/2, -self.h/R/2)
 end
 
 return _
