@@ -7,7 +7,7 @@ function _:init_circle(radius)
 end
 
 function _:get_shape()
-	return drystal.new_shape('circle', self.radius / R)
+	return drystal.new_shape('circle', self.radius)
 end
 
 return _

@@ -11,7 +11,7 @@ function _:init_physic_body(shape_prop, body_prop)
 		f(self.shape, v)
 	end
 
-	self.body = drystal.new_body(self.is_dynamic, self.x / R, self.y / R, self.shape)
+	self.body = drystal.new_body(self.is_dynamic, self.x, self.y, self.shape)
 	self.body:set_bullet(self.is_fast or false)
 	for k, v in pairs(body_prop or {}) do
 		local f = self.body['set_' .. k]
@@ -28,7 +28,7 @@ function _:init_physic_body(shape_prop, body_prop)
 end
 
 function _:set_position(x, y)
-	self.body:set_position(x/R, y/R)
+	self.body:set_position(x, y)
 	self.x = x
 	self.y = y
 end

@@ -50,7 +50,7 @@ function Character:init(associated_base)
 		angular_damping=6,
 		linear_damping=15,
 	})
-	self:init_physic_control(20)
+	self:init_physic_control(20*32)
 
 	self:add_on_respawn_callback(function() self.dead = false end)
 

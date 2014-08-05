@@ -19,7 +19,6 @@ local map
 W, H = 800, 600
 Camera.W = W
 Camera.H = H
-R = 32
 
 function drystal.update(dt)
 	for _, e in ipairs(entities) do
@@ -96,10 +95,10 @@ local function begin_collide(body1, body2, x, y, normalx, normaly)
 	local p1 = body1.parent
 	local p2 = body2.parent
 	if p1.begin_collide then
-		p1:begin_collide(p2, x*R, y*R, normalx, normaly)
+		p1:begin_collide(p2, x, y, normalx, normaly)
 	end
 	if p2.begin_collide then
-		p2:begin_collide(p1, x*R, y*R, -normalx, -normaly)
+		p2:begin_collide(p1, x, y, -normalx, -normaly)
 	end
 	return true
 end
@@ -127,7 +126,7 @@ local function presolve(body1, body2)
 	return true
 end
 
-drystal.create_world(0, 0)
+drystal.create_world(0, 0, 32)
 drystal.on_collision(begin_collide, end_collide, presolve)
 
 drystal.resize(W, H)

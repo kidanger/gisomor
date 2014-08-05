@@ -36,11 +36,9 @@ function _:update_physic_control(dt)
 			dy = dy / d
 			moving = true
 		end
-		
-		local speed = self.speed * R * dt
 
 		if moving then
-			self.body:set_linear_velocity(dx*speed, dy*speed)
+			self.body:set_linear_velocity(dx*self.speed, dy*self.speed)
 		end
 		do
 			local desire_angle = self.target_angle --math.atan2(dy, dx) % (math.pi*2)
