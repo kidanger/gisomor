@@ -24,7 +24,7 @@ function drystal.update(dt)
 	for _, e in ipairs(entities) do
 		e:update(dt)
 	end
-	drystal.update_physic(dt)
+	drystal.update_physics(dt)
 
 	local max = #entities
 	for i, e in ipairs(entities) do
@@ -126,7 +126,7 @@ local function presolve(body1, body2)
 	return true
 end
 
-drystal.create_world(0, 0, 32)
+drystal.init_physics(0, 0, 32)
 drystal.on_collision(begin_collide, end_collide, presolve)
 
 drystal.resize(W, H)
