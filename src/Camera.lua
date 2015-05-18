@@ -27,8 +27,8 @@ function Camera:update(dt)
 end
 
 function Camera:setup()
-	drystal.camera.x = self.W / 2 - self.x
-	drystal.camera.y = self.H / 2 - self.y
+	drystal.camera.x = self.x - self.W / 2
+	drystal.camera.y = self.y - self.H / 2
 	drystal.camera.zoom = self.zoom
 end
 
